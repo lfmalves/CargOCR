@@ -1,6 +1,9 @@
 class DriversController < ApplicationController
   before_action :set_driver, only: [:show, :edit, :update, :destroy]
 
+  require 'fileutils'
+  require 'rtesseract'
+
   # GET /drivers
   # GET /drivers.json
   def index
@@ -30,6 +33,9 @@ class DriversController < ApplicationController
       if @driver.save
         format.html { redirect_to @driver, notice: 'Driver was successfully created.' }
         format.json { render :show, status: :created, location: @driver }
+        require 'pry'
+        binding.pry
+        @driver.doc_number = RTesseract.new(params.driver["document"]["@tempfile"]).to_s
       else
         format.html { render :new }
         format.json { render json: @driver.errors, status: :unprocessable_entity }
