@@ -1,5 +1,8 @@
 <h1>New Driver</h1>
-
 <%= render 'form', driver: @driver %>
-
+<%= form_for :driver do |f| %>
+  <%= f.label "Documento" %>
+  <%= f.file_field :document %>
+  <%= f.submit %>
+<% end %>
 <%= link_to 'Back', drivers_path %>
