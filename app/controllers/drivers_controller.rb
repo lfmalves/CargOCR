@@ -33,8 +33,6 @@ class DriversController < ApplicationController
       if @driver.save
         format.html { redirect_to @driver, notice: 'Driver was successfully created.' }
         format.json { render :show, status: :created, location: @driver }
-        require 'pry'
-        binding.pry
         @driver.doc_number = RTesseract.new(params.to_s.scan(/\/var.*?.jpg/)).to_s
         @driver.save!
       else
